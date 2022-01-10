@@ -13,7 +13,7 @@ SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 
 
 #include <Servo.h>
-Servo servo_60;   // Servonun tanımlanm-ası ve pini
+Servo servo_60;   // Servonun tanımlanması ve pini
 const int servoPin = 10;  
 
 const int sikistirmaStepPin = 11;
@@ -134,7 +134,7 @@ void tamburStepDon(){    // 1/4 döndürmeye sahip.
   }
   
       
-  while(digitalRead(infraredSensorTambur) == LOW) {     // Tambur durma konumuna gelene kadar, sensör stepe dönme emri verir.(Mesneviden ders alınmadı!)
+  while(digitalRead(infraredSensorTambur) == LOW) {     // Tambur durma konumuna gelene kadar, sensör stepe dönme emri verir.
     digitalWrite(tamburStepPin,HIGH);
     delayMicroseconds(tamburStepHizi);             
     digitalWrite(tamburStepPin,LOW);
@@ -144,17 +144,9 @@ void tamburStepDon(){    // 1/4 döndürmeye sahip.
 }
 
 void servoDon(){   // servoyu ileri geri yapar(luk luk)
-  for (int pos = 0; pos <= 180; pos ++) {
-    servo_60.write(pos);
-    delay(1);
-  }
-  
+  servo_60.write(180);
   delay(100);
-  
-  for (int pos = 180; pos >= 0; pos --) {
-    servo_60.write(pos);
-    delay(1);
-  }
+  servo_60.write(0);
 }
 
 void kasikStepDon(){
@@ -252,8 +244,7 @@ void bluetoothBaglantisi(char deger){  // bu fonksiyona girmek için ayar fonksi
   {
     if(bluetooth.readString()== "AYAR")   // alınan veriyi menu seceneği olarak al
       {
-       //MENUYE GIR...
-     /* bluetooth.write("t");
+      bluetooth.write("t");
       bluetooth.write(tamburStepHizi);
 
       bluetooth.write("d");
@@ -269,7 +260,6 @@ void bluetoothBaglantisi(char deger){  // bu fonksiyona girmek için ayar fonksi
       bluetooth.write(sikilikAyari);
       
       delay (100);
-*/
       switch(deger){
         
       case 'T+' :
